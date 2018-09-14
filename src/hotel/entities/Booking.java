@@ -132,8 +132,14 @@ public class Booking {
 	}
 
 
-	public void checkIn() {
-		// TODO Auto-generated method stub
+	public void checkIn()throws RuntimeException {
+		if(state != State.PENDING ){
+		throw new RuntimeException("RuntimeException has occurred");
+		}
+		else{
+			room.checkin();
+		}
+	state = State.CHECKED_IN;
 	}
 
 
