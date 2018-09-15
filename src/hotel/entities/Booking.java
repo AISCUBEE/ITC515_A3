@@ -152,11 +152,14 @@ public class Booking {
 		}
 		
 	}
-	
-
-
-	public void checkOut() {
-		// TODO Auto-generated method stub
+	public void checkOut() throws RuntimeException {
+		if (state != State.CHECKED_IN){
+			throw new RuntimeException("RuntimeException has occurred");
+		}
+		else{
+			room.checkout();
+		}
+		state = State.CHECKED_OUT;
 	}
 
 }
