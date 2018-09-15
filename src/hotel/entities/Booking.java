@@ -143,9 +143,16 @@ public class Booking {
 	}
 
 
-	public void addServiceCharge(ServiceType serviceType, double cost) {
-		// TODO Auto-generated method stub
+	public void addServiceCharge(ServiceType serviceType, double cost)throws RuntimeException {
+		if(state ! = CHECKED_IN){
+		throw new RuntimeException("RuntimeException has occurred");	
+		}
+		else{
+			this.serviceCharge = new ServiceCharge(this);
+		}
+		
 	}
+	
 
 
 	public void checkOut() {
