@@ -92,13 +92,27 @@ public class CheckoutCTL {
 		else {
 			checkoutUI.displayMessage("Charges accepted");
 			state = State.CREDIT;
-			checkoutUI.setState(CheckoutUI.State.CREDIT);
+			checkoutUI.setState(checkoutUI.State.CREDIT);
 		}		
 	}
 
 	
-	public void creditDetailsEntered(CreditCardType type, int number, int ccv) {
-		// TODO Auto-generated method stub
+	public void creditDetailsEntered(CreditCardType type, int number, int ccv,boolean accepted) {
+		if (state !=State.CREDIT) {
+			String mesg = String.format("CheckoutCTL: roomIdEntered : bad state : %s", state);
+			CreditCard CreditCard=new CreditCard();
+			throw new RuntimeException(mesg);
+		}
+		if (!accepted) {
+			hotel.checkout();
+			checkoutUI.displayMessage("Credit Card Debited");
+			state=State.COMPLETED;
+			checkoutUI.setState(checkoutUI.State.COMPLETED);
+			
+		}
+		else {
+			checkoutUI.displayMessage("Credit Card Not Approved");
+		}
 	}
 
 
