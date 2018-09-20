@@ -60,8 +60,13 @@ public class Room {
 
 
 	public Booking book(Guest guest, Date arrivalDate, int stayLength, int numberOfOccupants, CreditCard creditCard) {
-		// TODO Auto-generated method stub
-		return null;		
+		Room room = new Room(this.id, this.roomType);
+                Booking booking = new Booking(guest, room, arrivalDate, stayLength, numberOfOccupants, creditCard);
+		if (isAvailable(arrivalDate, stayLength)) {
+			booking.isPending();
+		}
+		this.bookings.add(booking);
+		return booking;		
 	}
 
 
