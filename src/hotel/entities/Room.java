@@ -80,7 +80,12 @@ public class Room {
 
 
 	public void checkout(Booking booking) {
-		// TODO Auto-generated method stub
+		if (state != State.OCCUPIED) {
+			throw new RuntimeException();
+		}
+		booking.isCheckedOut();
+		this.bookings.remove(booking);
+		state = State.READY;
 	}
 
 
