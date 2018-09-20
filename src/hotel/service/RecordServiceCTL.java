@@ -49,9 +49,14 @@ public class RecordServiceCTL {
 	
 	
 	public void serviceDetailsEntered(ServiceType serviceType, double cost) {
-		// TODO Auto-generated method stub
+                if (state != State.SERVICE) {
+			throw new RuntimeException();
+		}
+		booking.addServiceCharge(serviceType, cost);
+		recordServiceUI.displayServiceChargeMessage(roomNumber, cost, serviceType.toString());
+		state = State.COMPLETED;
+		recordServiceUI.setState(RecordServiceUI.State.COMPLETED);
 	}
-
 
 	public void cancel() {
 		recordServiceUI.displayMessage("Pay for service cancelled");
