@@ -70,8 +70,12 @@ public class Room {
 	}
 
 
-	public void checkin() {
-		// TODO Auto-generated method stub
+	public void checkin(Booking booking) {
+		if (state != State.READY) {
+			throw new RuntimeException();
+		}
+		state = State.OCCUPIED;
+		booking.isCheckedIn();
 	}
 
 
