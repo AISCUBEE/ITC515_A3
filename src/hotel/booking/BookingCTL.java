@@ -137,7 +137,22 @@ public class BookingCTL {
 
 
 	public void creditDetailsEntered(CreditCardType type, int number, int ccv) {
-		// TODO Auto-generated method stub
+		if(state != State.CREDIT){
+			throw new RuntimeException("RuntimeException has occurred");	
+			}
+	
+		CreditCard creditCard = new CreditCard(type,number,ccv);
+		CreditAuthorizer creditAthorizer = new CreditAuthorizer();
+		if (creditAthorizer.authorize(creditCard,cost)) {
+			String guestName = guest.getName();
+			long confirmationNumber = hotel.book(room,guest,arrivalDate,stayLength,occupantNumber,creditCard);
+			bookingUI.displayConfirmedBooking(room.getDescription(), room.getId(),
+					arrivalDate, ccv, guestName, type.getVendor(), number, ccv, confirmationNumber);
+		}
+		else
+		{
+			String cardVendor = creditCard.getVendor();
+				bookingUI.displayMessage(cardVendor + " card has not authorized for the sum of " + cost );
 	}
 
 
