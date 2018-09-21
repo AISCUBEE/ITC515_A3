@@ -132,7 +132,7 @@ public class Booking {
 	}
 
 
-	public void checkIn()throws RuntimeException {
+	public void checkIn() {
 		if(state != State.PENDING ){
 		throw new RuntimeException("RuntimeException has occurred");
 		}
@@ -143,23 +143,26 @@ public class Booking {
 	}
 
 
-	public void addServiceCharge(ServiceType serviceType, double cost)throws RuntimeException {
-		if(state ! = CHECKED_IN){
+	public void addServiceCharge(ServiceType serviceType, double cost) {
+		if(state != State.CHECKED_IN){
 		throw new RuntimeException("RuntimeException has occurred");	
 		}
 		else{
-			this.serviceCharge = new ServiceCharge(this);
+			 charges.add(new ServiceCharge(serviceType, cost));
+			
 		}
 		
 	}
-	public void checkOut() throws RuntimeException {
+	public void checkOut()  {
 		if (state != State.CHECKED_IN){
 			throw new RuntimeException("RuntimeException has occurred");
 		}
 		else{
-			room.checkout();
+			Booking booking = new Booking(guest,  room, bookedArrival,  stayLength,  numberOfOccupants,  creditCard);
+			room.checkout(booking);
 		}
 		state = State.CHECKED_OUT;
+	}
 	}
 
 }
