@@ -98,7 +98,15 @@ public class Hotel {
 
 	
 	public void checkin(long confirmationNumber) {
-		// TODO Auto-generated method stub
+			// TODO Auto-generated method stub
+			Booking booking = bookingsByConfirmationNumber.get(confirmationNumber);
+            if (booking == null)
+            {
+                throw new RuntimeException(String.format("Booking ID %d does not exist.", confirmationNumber));
+            }
+            int roomId = booking.getRoomId();
+            booking.checkIn();
+            activeBookingsByRoomId.put(roomId, booking);
 	}
 
 
