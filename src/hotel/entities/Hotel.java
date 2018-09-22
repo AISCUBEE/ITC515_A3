@@ -6,6 +6,7 @@ import java.util.Map;
 
 import hotel.credit.CreditCard;
 import hotel.utils.IOUtils;
+import java.util.Calendar; // java.util.Calander is added 
 
 public class Hotel {
 	
@@ -89,22 +90,45 @@ public class Hotel {
 			Date arrivalDate, int stayLength, int occupantNumber,
 			CreditCard creditCard) {
 		// TODO Auto-generated method stub
-		return 0L;		
+			Booking booking = room.book(guest, arrivalDate, stayLength, occupantNumber, creditCard);
+            long confirmationNumber = booking.getConfirmationNumber();
+            bookingsByConfirmationNumber.put(confirmationNumber, booking);
+            return confirmationNumber;		
 	}
 
 	
 	public void checkin(long confirmationNumber) {
-		// TODO Auto-generated method stub
+			// TODO Auto-generated method stub
+			Booking booking = bookingsByConfirmationNumber.get(confirmationNumber);
+            if (booking == null)
+            {
+                throw new RuntimeException(String.format("Booking ID %d does not exist.", confirmationNumber));
+            }
+            int roomId = booking.getRoomId();
+            booking.checkIn();
+            activeBookingsByRoomId.put(roomId, booking);
 	}
 
 
 	public void addServiceCharge(int roomId, ServiceType serviceType, double cost) {
-		// TODO Auto-generated method stub
+			// TODO Auto-generated method stub
+			Booking booking = activeBookingsByRoomId.get(roomId);
+            if (booking == null)
+            {
+                throw new RuntimeException(String.format("No booking found for the room id %d.", roomId));
+            }
+            booking.addServiceCharge(serviceType, cost);
 	}
-
 	
 	public void checkout(int roomId) {
-		// TODO Auto-generated method stub
+			// TODO Auto-generated method stub
+			Booking booking = activeBookingsByRoomId.get(roomId);
+            if (booking == null)
+            {
+                throw new RuntimeException(String.format("No booking found for the room id %d.", roomId));
+            }
+            booking.checkOut();
+            activeBookingsByRoomId.remove(roomId);
 	}
 
 
