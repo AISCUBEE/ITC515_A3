@@ -6,6 +6,7 @@ import java.util.Map;
 
 import hotel.credit.CreditCard;
 import hotel.utils.IOUtils;
+import java.util.Calendar; // java.util.Calander is added 
 
 public class Hotel {
 	
@@ -89,7 +90,10 @@ public class Hotel {
 			Date arrivalDate, int stayLength, int occupantNumber,
 			CreditCard creditCard) {
 		// TODO Auto-generated method stub
-		return 0L;		
+			Booking booking = room.book(guest, arrivalDate, stayLength, occupantNumber, creditCard);
+            long confirmationNumber = booking.getConfirmationNumber();
+            bookingsByConfirmationNumber.put(confirmationNumber, booking);
+            return confirmationNumber;		
 	}
 
 	
@@ -102,7 +106,7 @@ public class Hotel {
 		// TODO Auto-generated method stub
 	}
 
-	
+\	
 	public void checkout(int roomId) {
 		// TODO Auto-generated method stub
 	}
