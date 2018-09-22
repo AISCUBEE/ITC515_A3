@@ -88,8 +88,11 @@ public class Hotel {
 	public long book(Room room, Guest guest, 
 			Date arrivalDate, int stayLength, int occupantNumber,
 			CreditCard creditCard) {
-		// TODO Auto-generated method stub
-		return 0L;		
+            // TODO Auto-generated method stub 
+            Booking booking = room.book(guest, arrivalDate, stayLength, occupantNumber, creditCard);
+            long confirmationNumber = booking.getConfirmationNumber();
+            bookingsByConfirmationNumber.put(confirmationNumber, booking);
+            return confirmationNumber;	
 	}
 
 	
