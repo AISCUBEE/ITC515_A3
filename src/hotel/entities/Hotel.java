@@ -119,7 +119,14 @@ public class Hotel {
 
 	
 	public void checkout(int roomId) {
-		// TODO Auto-generated method stub
+		Booking booking = activeBookingsByRoomId.get(roomId);
+            if (booking == null)
+            {
+                throw new RuntimeException(String.format("No booking found for the room id %d.", roomId));
+            }
+            booking.checkOut();
+            activeBookingsByRoomId.remove(roomId);
+	}
 	}
 
 
