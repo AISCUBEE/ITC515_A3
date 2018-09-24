@@ -97,6 +97,12 @@ public class CheckinCTL {
 	
 	public void completed() {
 		checkInUI.displayMessage("Checking in completed");
+		if (confirmed) {
+            hotel.checkin(confirmationNumber);
+            checkInUI.displayMessage("Checkin Confirmed");
+            state = State.COMPLETED;
+            checkInUI.setState(CheckinUI.State.COMPLETED);
+		
 	}
 
 }
