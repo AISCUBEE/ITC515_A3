@@ -15,7 +15,7 @@ public class Main {
 		
 		IOUtils.setTrace(false);
 				
-		hotel = HotelHelper.loadHotel();
+		//hotel = HotelHelper.loadHotel();
 		
 		boolean active = true;
 		try {
