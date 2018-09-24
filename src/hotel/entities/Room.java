@@ -59,32 +59,28 @@ public class Room {
 	}
 
 
-	public Booking book(Guest guest, Date arrivalDate, int stayLength, int numberOfOccupants, CreditCard creditCard) {
-		Room room = new Room(this.id, this.roomType);
-                Booking booking = new Booking(guest, room, arrivalDate, stayLength, numberOfOccupants, creditCard);
-		if (isAvailable(arrivalDate, stayLength)) {
-			booking.isPending();
-		}
-		this.bookings.add(booking);
-		return booking;		
-	}
+    public Booking book(Guest guest, Date arrivalDate, int stayLength, int numberOfOccupants, CreditCard creditCard) {
+        Booking booking = new Booking(guest, this, arrivalDate, stayLength, numberOfOccupants, creditCard);
+        bookings.add(booking);
+        return booking;
+    }
 
 
 	public void checkin(Booking booking) {
 		if (state != State.READY) {
-			throw new RuntimeException();
+			throw new RuntimeException("Room is" + state);
 		}
 		state = State.OCCUPIED;
-		booking.isCheckedIn();
+		
 	}
 
 
 	public void checkout(Booking booking) {
 		if (state != State.OCCUPIED) {
-			throw new RuntimeException();
+			throw new RuntimeException("Room is currently" + state);
 		}
-		booking.isCheckedOut();
-		this.bookings.remove(booking);
+		
+		bookings.remove(booking);
 		state = State.READY;
 	}
 
